@@ -52,10 +52,9 @@ export class UserService {
       throw new NotFoundException(`QR con número ${numQr} no encontrado.`);
     }
 
-    const newLogEntry = `{"status":"${updateQrsDto.status}","dateHour":"${new Date().toISOString()}","extra":"${updateQrsDto.extra || ''}"}`;
+    const newLogEntry = `Status actualizado a "${updateQrsDto.status}" el ${new Date().toISOString()}, comentario adicional: ${updateQrsDto.extra || 'N/A'}`;
 
-    // Concatenar el nuevo log a la columna logs existente
-    qr.logs = qr.logs ? `${qr.logs}, ${newLogEntry}` : newLogEntry;
+    qr.logs = qr.logs ? `${qr.logs} | ${newLogEntry}` : newLogEntry; // Concatenar como texto legible
     await this.qrsRepository.save(qr);
   }
 }

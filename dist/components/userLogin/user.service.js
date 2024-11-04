@@ -47,8 +47,8 @@ let UserService = class UserService {
         if (!qr) {
             throw new common_1.NotFoundException(`QR con número ${numQr} no encontrado.`);
         }
-        const newLogEntry = `{"status":"${updateQrsDto.status}","dateHour":"${new Date().toISOString()}","extra":"${updateQrsDto.extra || ''}"}`;
-        qr.logs = qr.logs ? `${qr.logs}, ${newLogEntry}` : newLogEntry;
+        const newLogEntry = `Status actualizado a "${updateQrsDto.status}" el ${new Date().toISOString()}, comentario adicional: ${updateQrsDto.extra || 'N/A'}`;
+        qr.logs = qr.logs ? `${qr.logs} | ${newLogEntry}` : newLogEntry;
         await this.qrsRepository.save(qr);
     }
 };
